@@ -1,6 +1,8 @@
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Linking,
+  Modal,
   StyleSheet,
   Text,
   View,
@@ -25,10 +27,11 @@ const SignUpScreen = ({ route, navigation }: TSignupScreenProps) => {
     "primary"
   );
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleCheckbox = () => {
     setIsChecked((prev) => !prev);
   };
-
+  console.log(isLoading);
   const { control, handleSubmit, formState, setFocus } =
     useForm<TSignUpFormData>({
       resolver: yupResolver(SignUpSchema),
@@ -42,11 +45,12 @@ const SignUpScreen = ({ route, navigation }: TSignupScreenProps) => {
 
   const onSubmit: SubmitHandler<TSignUpFormData> = useCallback(async (data) => {
     try {
+      setIsLoading(true);
       const signupRes = await signup(data);
       const { basicAuthCredentials } = signupRes;
       const account = await fetchAccount(basicAuthCredentials);
-
-      navigation.navigate("MyAccount", { account });
+      setIsLoading(false);
+      navigation.replace("MyAccount", { account });
     } catch (err) {
       console.log(err);
     }
@@ -144,6 +148,37 @@ const SignUpScreen = ({ route, navigation }: TSignupScreenProps) => {
           />
         </View>
       </KeyboardAvoidingView>
+      {isLoading && (
+        <Modal
+          statusBarTranslucent
+          animationType="fade"
+          visible={true}
+          transparent={true}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              paddingHorizontal: 20,
+              backgroundColor: "rgba(0,0,0,0.3)",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: theme.background.secondary,
+                width: "50%",
+                height: 150,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 20,
+              }}
+            >
+              <ActivityIndicator color={theme.system.primary} size={"large"} />
+            </View>
+          </View>
+        </Modal>
+      )}
     </SafeAreaView>
   );
 };
