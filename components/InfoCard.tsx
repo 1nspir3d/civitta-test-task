@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { IAccountData } from "../api/auth";
 import { formatCurrency } from "../utils/formatCurrency";
 import { useTheme } from "../theme/ThemeProvider";
+import { TAccountData } from "../utils/schemas";
 
 type TProps = {
-  account: IAccountData;
+  account: TAccountData;
 };
 
 const InfoCard = ({ account }: TProps) => {
@@ -38,7 +38,7 @@ const InfoCard = ({ account }: TProps) => {
         >
           Type of account
         </Text>
-        {/* accountType on IAccountData doesn't represent type of account
+        {/* accountType on TAccountData doesn't represent type of account
             represents Account No instead  
         */}
         {/* <Text style={styles.infoCardValue}>{account.accountType}</Text> */}

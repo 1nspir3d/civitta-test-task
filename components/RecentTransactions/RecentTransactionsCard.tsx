@@ -1,18 +1,18 @@
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 import React, { useCallback } from "react";
 import BackButton from "../BackButton";
-import { ITransaction } from "../../api/auth";
 import TransactionItem from "./TransactionItem";
 import ChevronButton from "../ChevronButton";
 import { useTheme } from "../../theme/ThemeProvider";
+import { TTransaction } from "../../utils/schemas";
 
 type TProps = {
-  transactions: ITransaction[];
+  transactions: TTransaction[];
 };
 
 const RecentTransactionsCard = ({ transactions }: TProps) => {
   const { theme } = useTheme();
-  const renderItem: ListRenderItem<ITransaction> = useCallback(
+  const renderItem: ListRenderItem<TTransaction> = useCallback(
     ({ item }) => <TransactionItem transaction={item} />,
     []
   );

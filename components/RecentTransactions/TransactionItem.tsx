@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { ITransaction } from "../../api/auth";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { useTheme } from "../../theme/ThemeProvider";
+import { TTransaction } from "../../utils/schemas";
 
 type TProps = {
-  transaction: ITransaction;
+  transaction: TTransaction;
 };
 
 const TransactionItem = ({ transaction }: TProps) => {

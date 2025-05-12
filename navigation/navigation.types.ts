@@ -1,11 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { IAccountData } from "../api/auth";
+import { TAccountData } from "../utils/schemas";
 
 export type TRootStackParamList = {
   Onboarding: undefined;
   Signup: undefined;
   MyAccount: {
-    account: IAccountData
+    account: TAccountData
   };
   ChangeTheme: undefined
 };
